@@ -3,7 +3,7 @@
     role="alert"
     :class="[
       'notification',
-      status === 'error' ? 'notification--error' : null,
+      status === 'error' ? 'notification--errors' : null,
       status === 'success' ? 'notification--success' : null,
       status === 'info' ? 'notification--info' : null,
       message && message.length > 0 ? 'notification--slide' : null
