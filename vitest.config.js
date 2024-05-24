@@ -6,6 +6,9 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
+      coverage: {
+        provider: 'v8'
+      },
       globals: true,
       environment: 'jsdom',
       exclude: [...configDefaults.exclude, 'e2e/**'],

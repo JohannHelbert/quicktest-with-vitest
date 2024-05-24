@@ -2,26 +2,24 @@ import { mount } from '@vue/test-utils'
 import NotificationToast from '../NotificationToast.vue'
 import { describe, expect, test } from 'vitest'
 
-describe('Notification Component', () => {
+describe('Notification component', () => {
   test('renders the correct style for error', () => {
     const status = 'error'
     const wrapper = mount(NotificationToast, {
       props: { status }
     })
-    expect(wrapper.html()).toMatchInlineSnapshot(`
-      "<div role="alert" class="notification notification--errors">
-        <p class="notification__text"></p><button title="close" class="notification__button"> ✕ </button>
-      </div>"
-    `)
+    expect(wrapper.html()).toMatchSnapshot()
   })
-  test('renders the correct style for error', () => {
+
+  test('renders correct style for success', () => {
     const status = 'success'
     const wrapper = mount(NotificationToast, {
       props: { status }
     })
     expect(wrapper.classes()).toEqual(expect.arrayContaining(['notification--success']))
   })
-  test('renders the correct style for error', () => {
+
+  test('renders correct style for info', () => {
     const status = 'info'
     const wrapper = mount(NotificationToast, {
       props: { status }
@@ -29,13 +27,14 @@ describe('Notification Component', () => {
     expect(wrapper.classes()).toEqual(expect.arrayContaining(['notification--info']))
   })
 
-  test('notification slides up when message is empty', () => {
+  test('slides up when message is empty', () => {
     const message = ''
     const wrapper = mount(NotificationToast, {
       props: { message }
     })
     expect(wrapper.classes('notification--slide')).toBe(false)
   })
+
   test('emits event when close button is clicked', async () => {
     const wrapper = mount(NotificationToast, {
       data() {
@@ -46,6 +45,7 @@ describe('Notification Component', () => {
     })
     const closeButton = wrapper.find('button')
     await closeButton.trigger('click')
+    expect(wrapper.emitted())
     expect(wrapper.emitted()).toHaveProperty('clear-notification')
   })
 
